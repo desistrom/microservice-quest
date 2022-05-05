@@ -1,0 +1,25 @@
+{
+  "name": "microservice",
+  "version": "1.0.0",
+  "description": "microservice with express mongo redis",
+  "main": "index.js",
+  "scripts": {
+    "auth-service": "npm --prefix auth-service/ run dev",
+    "customer-service": "npm --prefix customer-service/ run dev",
+    "product-service": "npm --prefix product-service/ run dev",
+    "sales-service": "npm --prefix sales-service/ run dev",
+    "gateway-service": "npm --prefix gateway-service/ run dev",
+    "dev": "concurrently \"npm run gateway-service\" \"npm run auth-service\" \"npm run customer-service\" \"npm run product-service\" \"npm run sales-service\"",
+    "start": "npm run dev"
+  },
+  "keywords": [
+    "microservice"
+  ],
+  "author": "Junaedi",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "joi": "^17.6.0",
+    "path": "^0.12.7"
+  }
+}
