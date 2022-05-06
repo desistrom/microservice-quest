@@ -1,79 +1,17 @@
 version: '3'
+
 services:
+  mongodb:
+    image: mongo:4.2.1-bionic
+    ports:
+      - '27017:27017'
+    volumes:
+      - dbdata:/data/db
 
-    redis:
-        image: redis
-        volumes:
-            - ./dev/redis:/data
-        ports:
-            - 6379:6379
-        restart: always
-        networks:
-            - node-network
+volumes:
+  dbdata:
 
-    mysql: 
-        image: mysql:5.7
-        volumes:
-            - ./dev/mysql/mysql:/var/lib/mysql
-            - ./dev/mysql/mysql-config:/etc/mysql/conf.d
-        environment:
-            MYSQL_ROOT_PASSWORD: root
-            MYSQL_DATABASE: project
-            MYSQL_USER: test
-            MYSQL_PASSWORD: test
-        ports:
-            - 3306:3306
-        networks:
-            - node-network
-        # command: --default-authentication-plugin=mysql_native_password
-        # restart: always
-
-    gateway:
-        image: tudtude/nodemon:2.0
-        volumes: 
-            - ./gateway:/usr/src/app
-        networks:
-            - node-network
-        ports: 
-            - 80:80
-        command: nodemon -L index.js
-
-    user:
-        image: tudtude/nodemon:2.0
-        volumes: 
-            - ./user:/usr/src/app
-        networks:
-            - node-network
-        command: nodemon -L index.js
-    
-    order:
-        image: tudtude/nodemon:2.0
-        volumes: 
-            - ./order:/usr/src/app
-        networks:
-            - node-network
-        command: nodemon -L index.js
-
-    redisgw:
-        image: tudtude/nodemon:2.0
-        volumes:
-            - ./redisgw:/usr/src/app
-        command: nodemon -L index.js
-        depends_on:
-            - redis
-        networks:
-            - node-network
-    
-    mysqlgw:
-        image: tudtude/nodemon:2.0
-        volumes:
-            - ./mysqlgw:/usr/src/app
-        command: nodemon -L index.js
-        networks:
-            - node-network
-        depends_on:
-            - mysql
-    
-networks:
-    node-network:
-        driver: bridge
+networks: 
+  default: 
+    external: 
+      name: microservice-network

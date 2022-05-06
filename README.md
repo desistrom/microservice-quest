@@ -1,4 +1,4 @@
-before start please change directory to user-service and run "npm run seed" first for defalt credintial.
+before start please change directory to user-service and run "npm run seed" first for default credintial.
 
 Credintial
 Admin : 

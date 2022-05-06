@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: auth-container
-        image: system:1.0-SNAPSHOT
+        image: desistrom/auth-service:latest
         ports:
         - containerPort: 3000
 ---
@@ -36,9 +36,9 @@ spec:
     spec:
       containers:
       - name: user-container
-        image: user:1.0-SNAPSHOT
+        image: desistrom/user-service:latest
         ports:
-        - containerPort: 9080
+        - containerPort: 3001
 ---
 apiVersion: v1
 kind: Service
@@ -50,8 +50,8 @@ spec:
     app: auth
   ports:
   - protocol: TCP
-    port: 9080
-    targetPort: 9080
+    port: 3000
+    targetPort: 3000
     nodePort: 31000
 
 ---
@@ -65,6 +65,6 @@ spec:
     app: user
   ports:
   - protocol: TCP
-    port: 9080
-    targetPort: 9080
+    port: 3001
+    targetPort: 3001
     nodePort: 32000
